@@ -1,0 +1,52 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Canvas-Time</title>
+</head>
+
+<body style="padding: 0;margin: 0;">
+    <canvas id="canvas" style="position: absolute;top:50%;left: 50%;transform: translate(-50%, -50%);"></canvas>
+    <script>
+        // 今天做个不加 分号 的 coder
+        let canvas = document.querySelector('#canvas')
+        let context = canvas.getContext('2d')
+        let x = 20, y = 20
+        adjustCanvas();
+        window.addEventListener('resize', function (e) {
+            adjustCanvas()
+        })
+        context.fillRect(20, 20, 20, 20)
+        
+        function adjustCanvas() {
+            canvas.width = window.innerWidth - 100
+            canvas.height = window.innerHeight - 30
+        }
+        function draw() {
+            context.fillRect(x, y, 20, 20)
+        }
+        function clearCanvas() {
+            context.clearRect(0, 0, canvas.width, canvas.height)
+        }
+        let requestAnimationFrame_ =
+            window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) {
+                window.setTimeout(callback, 1000 / 60)
+            }
+
+        let a = function (){
+            x += 1
+            y += 3
+            clearCanvas()
+            draw()
+            requestAnimationFrame_(a)
+        }
+        a()
+    </script>
+</body>
+
+</html>
