@@ -16,14 +16,14 @@
         window.addEventListener('resize', function (e) {
             adjustCanvas()
         })
-        context.fillRect(20, 20, 20, 20)
-        
+
         function adjustCanvas() {
             canvas.width = window.innerWidth - 100
             canvas.height = window.innerHeight - 30
         }
         function draw() {
             context.fillRect(x, y, 20, 20)
+            
         }
         function clearCanvas() {
             context.clearRect(0, 0, canvas.width, canvas.height)
@@ -38,14 +38,12 @@
                 window.setTimeout(callback, 1000 / 60)
             }
 
-        let a = function (){
-            x += 1
-            y += 3
+        let start = function (){
             clearCanvas()
             draw()
-            requestAnimationFrame_(a)
+            requestAnimationFrame_(start)
         }
-        a()
+        start()
     </script>
 </body>
 
