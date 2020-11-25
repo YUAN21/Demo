@@ -1,0 +1,134 @@
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>无限滚动</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 示例1 js */
+        .li1 {
+            height: 80px;
+            width: 80px;
+            list-style: none;
+            display: inline-block;
+            margin: 10px 5px;
+            text-align: center;
+            color: black;
+            line-height: 80px;
+        }
+
+        /* 示例2 css */
+        .wrap {
+            overflow: hidden;
+            width: 300px;
+            height: 100px;
+            border: 1px solid #000;
+            margin: 50px auto;
+        }
+
+        .list {
+            position: relative;
+            top: 0px;
+            left: 0px;
+            /* 此处宽度是 list 整体长度，也就是本身长度 x2 */
+            /* 实际使用中可获取 list 的长度直接赋值 */
+            width: 400%;
+            height: 100%;
+            list-style: none;
+            animation: mymove 5s infinite linear;
+        }
+
+        .list li {
+            width: 98px;
+            height: 98px;
+            border: 1px solid white;
+            background: blue;
+            float: left;
+            vertical-align: middle;
+            text-align: center;
+            line-height: 98px;
+        }
+
+        @keyframes mymove {
+            from {
+                left: 0px;
+            }
+
+            to {
+                /* 是相对于 容器 也就是 .wrap 的，此例中 list 的长度是 wrap 的2倍，所以 200% */
+                left: -200%;
+            }
+        }
+
+        .pause {
+            animation-play-state: paused;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 示例1 js -->
+    <div id="demo"
+        style=" width:240px; overflow: hidden; margin: 0 10px; white-space: nowrap; background: #ccc;margin: auto;">
+        <div id="demo1" height="80" style="display: inline-block;">
+            <li class="li1">1</li>
+            <li class="li1">2</li>
+            <li class="li1">3</li>
+            <li class="li1">4</li>
+            <li class="li1">5</li>
+            <li class="li1">6</li>
+        </div>
+        <div id="demo2" style="display: inline-block;"></div>
+    </div>
+
+    <!-- 示例2 css -->
+    <!-- 原理同 示例1 -->
+    <div class="wrap">
+        <ul id="list" class="list">
+            <li> 1 </li>
+            <li> 2 </li>
+            <li> 3 </li>
+            <li> 4 </li>
+            <li> 5 </li>
+            <li> 6 </li>
+        </ul>
+    </div>
+
+    <script>
+        // 示例1 纯js
+        var speed = 15;
+        demo2.innerHTML = demo1.innerHTML;
+
+        // 当 demo1 完全走出可视范围，demo2 左侧到达可视范围左时，重置demo1的位置，重新左移 demo1 达到持续滚动的效果；
+        function Marquee() {
+            if (demo1.offsetWidth - demo.scrollLeft <= 0) {
+                demo.scrollLeft -= demo1.offsetWidth;
+            } else {
+                demo.scrollLeft++;
+            }
+        }
+        var MyMar = setInterval(Marquee, speed)
+        demo.onmouseenter = function () {
+            clearInterval(MyMar)
+        }
+        demo.onmouseleave = function () {
+            MyMar = setInterval(Marquee, speed)
+        }
+
+        // 示例2 纯css
+        list.innerHTML += list.innerHTML;
+        list.onmouseenter = function () {
+            list.className = 'list pause'
+        }
+        list.onmouseleave = function () {
+            list.className = 'list'
+        }
+    </script>
+</body>
+
+</html>
