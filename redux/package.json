@@ -15,7 +15,7 @@
     "@antv/g2": "^3.0.4-beta.2",
     "antd": "^3.1.0",
     "babel-core": "^6.3.26",
-    "babel-loader": "^6.2.0",
+    "babel-loader": "^9.1.0",
     "babel-plugin-antd": "^0.4.0",
     "babel-plugin-import": "^1.6.3",
     "babel-plugin-transform-class-properties": "^6.3.13",
